@@ -8,8 +8,8 @@ class Solution {
             this.y=y;
             this.d2=d2;
         }
-        public int compareTo(triplet t){
-           return this.d2 -t.d2;
+        public int compareTo(triplet z){
+           return this.d2 -z.d2;
         }
     }
     public int[][] kClosest(int[][] points, int k) {
