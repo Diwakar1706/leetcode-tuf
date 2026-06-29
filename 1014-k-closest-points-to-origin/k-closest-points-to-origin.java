@@ -1,39 +1,36 @@
-import java.util.*;
-
 class Solution {
-
-    static class Pair {
-        int x, y, dist;
-
-        Pair(int x, int y) {
-            this.x = x;
-            this.y = y;
-            this.dist = x * x + y * y;
+    static class triplet implements Comparable<triplet>{
+        int x;
+        int y;
+        int d2;
+        triplet(int x,int y,int d2){
+            this.x=x;
+            this.y=y;
+            this.d2=d2;
+        }
+        public int compareTo(triplet t){
+           return this.d2 -t.d2;
         }
     }
-
     public int[][] kClosest(int[][] points, int k) {
-
-        PriorityQueue<Pair> pq = new PriorityQueue<>(
-            (a, b) -> b.dist - a.dist
-        );
-
-        for (int[] p : points) {
-            pq.offer(new Pair(p[0], p[1]));
-
-            if (pq.size() > k) {
-                pq.poll();
-            }
+        int n=points.length;
+        PriorityQueue<triplet> pq=new PriorityQueue<>(Collections.reverseOrder());
+       
+        for(int i=0; i<n; i++){
+            int x=points[i][0]; 
+            int y=points[i][1];
+            int d2=x*x+y*y;
+            pq.add(new triplet(x,y,d2));  
+            if(pq.size()>k) pq.remove();
         }
+        int[][]  ans=new int[k][2];
+        for(int i=0; i<k; i++){
+            triplet t=pq.remove();
+            ans[i][0]=t.x;
+            ans[i][1]=t.y;
 
-        int[][] ans = new int[k][2];
-
-        for (int i = 0; i < k; i++) {
-            Pair cur = pq.poll();
-            ans[i][0] = cur.x;
-            ans[i][1] = cur.y;
         }
-
         return ans;
+        
     }
 }
