@@ -2,6 +2,7 @@ class Solution {
     public int minEatingSpeed(int[] piles, int h) {
          int low = 1;
         int high = max(piles);
+        int ans=Integer.MAX_VALUE;
  
 
         while (low <= high) {
@@ -11,6 +12,7 @@ class Solution {
             long hours = totalhour(piles, mid);
 
             if (hours <= h) {
+                ans=mid;
           
                 high = mid - 1;   // try smaller speed
             } else {
@@ -18,7 +20,7 @@ class Solution {
             }
         }
 
-        return low;
+        return ans;
     
         
         
